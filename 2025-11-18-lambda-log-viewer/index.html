@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lambda Log Viewer</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="page">
+    <header class="header">
+      <div>
+        <h1>Lambda Log Viewer</h1>
+        <p class="subtitle">Super fast, dependency-free viewer for Lambda functions.</p>
+      </div>
+      <div class="actions">
+        <button id="refreshButton" aria-label="Refresh log list">↻ Refresh</button>
+      </div>
+    </header>
+
+    <section class="controls">
+      <label>
+        Account
+        <select id="accountSelect"></select>
+      </label>
+      <label>
+        Function
+        <select id="functionSelect" disabled></select>
+      </label>
+      <label>
+        Time range
+        <select id="timeRangeSelect">
+          <option value="15">Last 15 minutes</option>
+          <option value="60" selected>Last 1 hour</option>
+          <option value="360">Last 6 hours</option>
+          <option value="1440">Last 24 hours</option>
+          <option value="0">All time</option>
+        </select>
+      </label>
+      <div class="control-inline">
+        <span>Auto-refresh</span>
+        <button id="autoRefreshButton" aria-pressed="false">Off</button>
+      </div>
+    </section>
+
+    <div class="grid">
+      <section class="list-panel">
+        <div class="list-header">
+          <h2>Log Streams</h2>
+          <input id="searchInput" type="search" placeholder="Filter log streams..." aria-label="Filter log streams">
+        </div>
+        <ul id="logList" class="log-list" aria-live="polite"></ul>
+        <div id="emptyState" class="empty-state hidden">No log streams in range.</div>
+      </section>
+
+      <section class="events-panel">
+        <div class="list-header">
+          <h2>Log Events</h2>
+          <div class="actions-row">
+            <input id="eventSearchInput" type="search" placeholder="Filter events..." aria-label="Filter events">
+            <button id="copyEventsButton" disabled>Copy</button>
+            <button id="downloadEventsButton" disabled>Download</button>
+          </div>
+        </div>
+        <div id="eventStreamMeta" class="event-meta muted"></div>
+        <ul id="eventList" class="event-list" aria-live="polite"></ul>
+        <div id="eventEmptyState" class="empty-state hidden">Select a log stream to view events.</div>
+      </section>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
