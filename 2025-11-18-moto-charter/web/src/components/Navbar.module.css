@@ -1,6 +1,6 @@
 .navbar {
     border-bottom: 1px solid var(--border);
-    background-color: rgba(10, 10, 10, 0.8);
+    background-color: rgba(10, 10, 10, 0.95);
     backdrop-filter: blur(10px);
     position: sticky;
     top: 0;
@@ -11,7 +11,7 @@
 .inner {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    gap: 2rem;
 }
 
 .logo {
@@ -19,28 +19,88 @@
     font-weight: 800;
     font-size: 1.5rem;
     letter-spacing: -0.02em;
+    white-space: nowrap;
 }
 
 .highlight {
     color: var(--primary);
 }
 
-.links {
+.searchForm {
     display: flex;
-    gap: 2rem;
+    gap: 0.5rem;
+    align-items: center;
+    flex: 1;
+    max-width: 900px;
 }
 
-.link {
-    font-weight: 500;
-    color: var(--muted-foreground);
-    transition: color 0.2s ease;
-}
-
-.link:hover {
+.searchInput,
+.searchSelect {
+    padding: 0.5rem 0.75rem;
+    background-color: var(--input);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
     color: var(--foreground);
+    font-size: 0.875rem;
+    transition: border-color 0.2s ease;
 }
 
-.auth {
+.searchInput {
+    flex: 1;
+    min-width: 150px;
+}
+
+.searchSelect {
+    min-width: 120px;
+}
+
+.searchInput:focus,
+.searchSelect:focus {
+    outline: none;
+    border-color: var(--ring);
+}
+
+.searchInput::placeholder {
+    color: var(--muted-foreground);
+}
+
+.searchBtn,
+.resetBtn {
+    padding: 0.5rem 1.25rem;
+    font-size: 0.875rem;
+    white-space: nowrap;
+}
+
+.actions {
     display: flex;
     gap: 1rem;
+    align-items: center;
+}
+
+@media (max-width: 1024px) {
+    .searchForm {
+        max-width: 600px;
+    }
+
+    .searchSelect {
+        min-width: 100px;
+    }
+}
+
+@media (max-width: 768px) {
+    .inner {
+        flex-wrap: wrap;
+    }
+
+    .searchForm {
+        flex: 1 1 100%;
+        order: 3;
+        margin-top: 1rem;
+        max-width: 100%;
+    }
+
+    .searchInput,
+    .searchSelect {
+        font-size: 0.8125rem;
+    }
 }

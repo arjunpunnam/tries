@@ -1,39 +1,205 @@
-.form {
+.formContainer {
     max-width: 800px;
     margin: 0 auto;
-    background: var(--card);
-    padding: 2rem;
-    border-radius: var(--radius);
+}
+
+.progress {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 3rem;
+    padding: 0 2rem;
+}
+
+.progressStep {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    flex: 1;
+    opacity: 0.5;
+    transition: opacity 0.3s ease;
+}
+
+.progressStep.active {
+    opacity: 1;
+}
+
+.progressCircle {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    background-color: var(--secondary);
+    border: 2px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1.25rem;
+    transition: all 0.3s ease;
+}
+
+.progressStep.active .progressCircle {
+    background-color: var(--primary);
+    border-color: var(--primary);
+    color: var(--primary-foreground);
+    transform: scale(1.1);
+}
+
+.progressLine {
+    flex: 1;
+    height: 2px;
+    background-color: var(--border);
+    margin: 0 1rem;
+}
+
+.progressStep span {
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-align: center;
+}
+
+.form {
+    background-color: var(--card);
     border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 2rem;
+}
+
+.step {
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.stepTitle {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    color: var(--foreground);
 }
 
 .grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, 1fr);
     gap: 1.5rem;
-    margin-bottom: 1.5rem;
 }
 
 .field {
-    margin-bottom: 1.5rem;
-}
-
-.error {
-    color: #ef4444;
-    background: rgba(239, 68, 68, 0.1);
-    padding: 1rem;
-    border-radius: var(--radius);
-    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
 }
 
 .hint {
-    font-size: 0.875rem;
+    font-size: 0.75rem;
     color: var(--muted-foreground);
     margin-top: 0.5rem;
+}
+
+.error {
+    background-color: rgba(225, 29, 72, 0.1);
+    border: 1px solid var(--primary);
+    color: var(--primary);
+    padding: 1rem;
+    border-radius: var(--radius);
+    margin-bottom: 1.5rem;
+    font-size: 0.875rem;
+}
+
+.imagePreviews {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.imagePreview {
+    position: relative;
+    aspect-ratio: 1;
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 2px solid var(--border);
+    transition: border-color 0.2s ease;
+}
+
+.imagePreview:hover {
+    border-color: var(--primary);
+}
+
+.imagePreview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.removeImage {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.imagePreview:hover .removeImage {
+    opacity: 1;
+}
+
+.primaryBadge {
+    position: absolute;
+    bottom: 0.5rem;
+    left: 0.5rem;
+    background-color: var(--accent);
+    color: var(--accent-foreground);
+    padding: 0.25rem 0.75rem;
+    border-radius: 2rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.navigation {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
 }
 
 @media (max-width: 768px) {
     .grid {
         grid-template-columns: 1fr;
+    }
+
+    .progress {
+        padding: 0;
+    }
+
+    .progressStep span {
+        font-size: 0.75rem;
+    }
+
+    .progressCircle {
+        width: 2.5rem;
+        height: 2.5rem;
+        font-size: 1rem;
     }
 }

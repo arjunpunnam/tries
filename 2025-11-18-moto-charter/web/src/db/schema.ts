@@ -20,6 +20,8 @@ export const listings = sqliteTable('listings', {
     description: text('description').notNull(),
     mileage: integer('mileage').notNull(),
     engineCc: integer('engine_cc').notNull(),
+    location: text('location').notNull(),
+    bikeType: text('bike_type', { enum: ['sport', 'naked', 'adventure', 'cruiser', 'touring', 'cafe-racer', 'other'] }).notNull(),
     status: text('status', { enum: ['active', 'sold', 'pending'] }).default('active').notNull(),
     createdAt: integer('created_at', { mode: 'timestamp' }).default(sql`(strftime('%s', 'now'))`),
 });

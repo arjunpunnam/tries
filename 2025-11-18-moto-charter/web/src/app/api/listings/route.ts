@@ -30,11 +30,15 @@ export async function POST(request: Request) {
 
     try {
         const body = await request.json();
-        const { make, model, year, price, description, mileage, engineCc, imageUrls, serviceHistory } = body;
+        const { make, model, year, price, description, mileage, engineCc, location, bikeType, imageUrls, serviceHistory } = body;
 
         // Validation (basic)
-        if (!make || !model || !year || !price || !description || !mileage || !engineCc) {
+        if (!make || !model || !year || !price || !description || !mileage || !engineCc || !location || !bikeType) {
             return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
+        }
+
+        if (parseInt(engineCc) < 250) {
+            return NextResponse.json({ error: 'Engine displacement must be 250cc or above' }, { status: 400 });
         }
 
         // Transaction to create listing and related data
@@ -48,6 +52,8 @@ export async function POST(request: Request) {
                 description,
                 mileage: parseInt(mileage),
                 engineCc: parseInt(engineCc),
+                location,
+                bikeType,
             }).returning().get();
 
             if (imageUrls && imageUrls.length > 0) {
